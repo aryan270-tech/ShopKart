@@ -6,5 +6,13 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 5173,
+    proxy: {
+      "/customers": "http://localhost:5000",
+      "/products": "http://localhost:5000",
+      "/wishlist": "http://localhost:5000",
+      "/cart": "http://localhost:5000",
+      "/orders": "http://localhost:5000",
+      "/api": "http://localhost:5000",
+    },
   },
 });

@@ -1,8 +1,17 @@
 import axios from "axios";
 
-// Point this at your Lab 01 backend.
-// Keep it in an env file (.env) in a real project: VITE_API_BASE_URL
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+const envBase = import.meta.env.VITE_API_BASE_URL;
+
+// When deployed on Render (single-service fullstack), relative path ""
+// ensures requests go to the current domain (e.g. https://shopkart-7ozo.onrender.com/customers/login)
+// without HTTPS mixed-content or CORS issues.
+// In local dev, defaults to http://localhost:5000 unless overridden.
+const BASE_URL =
+  envBase && !envBase.includes("localhost")
+    ? envBase
+    : import.meta.env.PROD
+    ? ""
+    : (envBase || "http://localhost:5000");
 
 // A single shared axios instance.
 // withCredentials: true tells the browser to send/receive the HttpOnly
