@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50/70 text-slate-900 font-body antialiased min-h-screen selection:bg-brand-500 selection:text-white;
+  }
+}
+
+@layer components {
+  .field-label {
+    @apply block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5;
+  }
+
+  .field-input {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-800 text-sm
+      placeholder:text-slate-400
+      focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500
+      shadow-sm transition-all duration-200;
+  }
+
+  .field-input.has-error {
+    @apply border-rose-300 bg-rose-50/30 focus:ring-rose-500/20 focus:border-rose-500 text-rose-900;
+  }
+
+  .field-error {
+    @apply mt-1.5 text-xs font-medium text-rose-600 flex items-center gap-1;
+  }
+
+  .btn-primary {
+    @apply w-full rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 px-5 py-3 font-semibold text-sm text-white
+      hover:from-brand-500 hover:to-indigo-500 active:scale-[0.99]
+      shadow-md shadow-brand-500/20 hover:shadow-lg hover:shadow-brand-500/30
+      disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none
+      transition-all duration-200 flex items-center justify-center gap-2;
+  }
+
+  .glass-panel {
+    @apply bg-white/80 backdrop-blur-md border border-white/60 shadow-subtle;
+  }
+
+  .card-hover-effect {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover;
+  }
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
