@@ -4,7 +4,7 @@
   "description": "ShopKart Full-Stack E-Commerce Platform",
   "scripts": {
     "build": "npm run build:frontend && npm run install:backend",
-    "build:frontend": "cd frontend/shopkart && npm install && npm run build",
+    "build:frontend": "cd frontend/shopkart && npm install --include=dev && npm run build",
     "install:backend": "cd backend && npm install",
     "start": "node backend/index.js"
   },
