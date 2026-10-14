@@ -164,9 +164,50 @@ cd ShopKart
 
 ---
 
+## 🌐 Deployment Guide (Live Demo)
+
+### Option 1: Fast Full-Stack Deployment on Render (Recommended)
+This repository is pre-configured with a root `package.json` to deploy both frontend and backend together as a single service on Render:
+
+1. Go to [render.com](https://render.com) and click **New + > Web Service**.
+2. Connect your GitHub repository: `https://github.com/aryan270-tech/ShopKart`.
+3. Set the following settings:
+   * **Name**: `shopkart`
+   * **Root Directory**: *(leave blank)*
+   * **Environment**: `Node`
+   * **Build Command**: `npm run build`
+   * **Start Command**: `npm start`
+4. Under **Environment Variables**, add:
+   * `NODE_ENV` = `production`
+   * `MONGO_URI` = *(your MongoDB Atlas connection string)*
+   * `JWT_SECRET` = *(your secret key, e.g. `myShopKartSecret123`)*
+   * `RAZORPAY_KEY_ID` = `rzp_test_xxxxxxxxxxxxxx`
+   * `RAZORPAY_KEY_SECRET` = `your_razorpay_test_key_secret`
+5. Click **Create Web Service**. Your app will be live at `https://shopkart-xxxx.onrender.com`!
+
+---
+
+### Option 2: Split Deployment (Backend on Render + Frontend on Vercel)
+If you prefer deploying frontend and backend independently:
+
+1. **Deploy Backend on Render**:
+   * Root Directory: `backend`
+   * Build Command: `npm install`
+   * Start Command: `npm start`
+   * Environment Variables: `MONGO_URI`, `JWT_SECRET`, `NODE_ENV=production`, `CLIENT_URL=https://your-frontend.vercel.app`
+2. **Deploy Frontend on Vercel**:
+   * Go to [vercel.com](https://vercel.com) and import the repository.
+   * Root Directory: `frontend/shopkart`
+   * Framework Preset: `Vite`
+   * Environment Variable: `VITE_API_BASE_URL` = `https://your-backend.onrender.com`
+   * Click **Deploy**.
+
+---
+
 ## 🔒 Security Practices
 * **Zero Secrets Committed**: All database credentials, JWT secrets, and payment keys are loaded strictly from environment variables.
 * **HttpOnly Session Cookies**: JWT cookies are `HttpOnly` and cannot be accessed via browser JavaScript, mitigating XSS attacks.
+* **Cross-Site Cookie Compatibility**: Configured `SameSite=None; Secure` in production for seamless authentication across domains.
 * **Server-Side Validation**: Product pricing, stock verification, and subtotal calculation are performed strictly on the backend to prevent client-side manipulation.
 * **Cryptographic Verification**: Payment verification uses HMAC SHA-256 checksums to authenticate genuine Razorpay callbacks.
 

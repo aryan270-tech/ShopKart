@@ -82,8 +82,11 @@ exports.getProfile = async (req, res) => {
 
 // Task 4: Logout
 exports.logout = async (req, res) => {
+  const isProduction = process.env.NODE_ENV === 'production';
   res.cookie('jwt', '', {
     httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'lax',
     expires: new Date(0),
   });
 
