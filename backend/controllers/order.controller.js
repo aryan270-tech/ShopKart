@@ -303,10 +303,6 @@ const STATUS_FLOW = ['PLACED', 'CONFIRMED', 'SHIPPED', 'DELIVERED'];
 
 exports.updateOrderStatus = async (req, res) => {
   try {
-    if (process.env.NODE_ENV === 'production') {
-      return res.status(404).json({ message: 'Not found' });
-    }
-
     const { id } = req.params;
     const { status } = req.body || {};
 

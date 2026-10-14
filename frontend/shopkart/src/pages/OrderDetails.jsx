@@ -106,20 +106,32 @@ export default function OrderDetails() {
               <OrderStatusTracker status={order.status} />
             </div>
 
-            {import.meta.env.DEV && nextStatus && (
-              <div className="rounded-2xl border border-dashed border-amber-300 bg-amber-50/60 p-3 flex flex-wrap items-center justify-between gap-3">
-                <span className="text-xs font-semibold text-amber-800">
-                  Dev tool: simulate order progress
-                </span>
+            {nextStatus && (
+              <div className="rounded-2xl border border-dashed border-brand-300 bg-brand-50/60 p-4 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+                <div>
+                  <span className="text-xs font-bold text-brand-900 block">
+                    Order Status Progress (Lab Demo Tool)
+                  </span>
+                  <span className="text-[11px] text-slate-500">
+                    Advance this order from <span className="font-semibold text-slate-700">{order.status}</span> to <span className="font-semibold text-brand-700">{nextStatus}</span>
+                  </span>
+                </div>
                 <button
                   onClick={handleAdvance}
                   disabled={advancing}
-                  className="px-3.5 py-1.5 rounded-lg bg-amber-500 text-white text-xs font-bold hover:bg-amber-600 disabled:opacity-60 transition"
+                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 text-white text-xs font-bold shadow-sm hover:from-brand-500 hover:to-indigo-500 disabled:opacity-60 transition flex items-center gap-1.5"
                 >
-                  {advancing ? "Updating..." : `Mark as ${nextStatus}`}
+                  {advancing ? (
+                    <>
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      <span>Updating...</span>
+                    </>
+                  ) : (
+                    <span>Advance to {nextStatus} ➔</span>
+                  )}
                 </button>
                 {advanceError && (
-                  <p className="w-full text-xs text-rose-700">{advanceError}</p>
+                  <p className="w-full text-xs text-rose-700 font-medium">{advanceError}</p>
                 )}
               </div>
             )}
