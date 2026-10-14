@@ -3,7 +3,7 @@ const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-require('dotenv').config();
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const customerRoutes = require('./routes/customer.routes');
 const productRoutes = require('./routes/product.routes');
@@ -62,7 +62,9 @@ app.use('/api/orders', orderRoutes);
 const frontendDistPath = path.join(__dirname, '../frontend/shopkart/dist');
 app.use(express.static(frontendDistPath));
 
-app.get('*', (req, res, next) => {
+// For client-side routing, route any unmatched GET request to index.html (Express 5 compatible)
+app.use((req, res, next) => {
+  if (req.method !== 'GET') return next();
   if (
     req.path.startsWith('/customers') ||
     req.path.startsWith('/products') ||
